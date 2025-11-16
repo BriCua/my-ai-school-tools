@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
+    "groq-sdk": "^0.34.0",
+    "openai": "^6.8.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
