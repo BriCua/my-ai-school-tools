@@ -161,6 +161,33 @@ router.post("/flashcards", async (req, res) => {
       .json({ error: "Failed to generate flashcards", details: error.message });
   }
 });
-router.post("/fact",)
+router.get("/fact", async (req, res) => {
+  try {
+    const funFact = await groqClient.chat.completions.create({
+      model: "llama-3.1-8b-instant",
+      max_tokens: 1024,
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful and wise keeper of knowledge. Your task is to give users one random piece of educative and useful fact, preferrably in the field of STEM. When responding, it is unecessary to start with phrases like 'Here is a useful fact' and similar phrases. Immediately respond with the main content of the fact.",
+        },
+        {
+          role: "user",
+          content: "Give me one random EDUCATIVE and USEFUL fact.",
+        },
+      ],
+    });
+
+    res.json({ fact: funFact.choices[0].message.content });
+
+  } catch (error) {
+    console.error("Groq API Error:", error);
+    res.status(500).json({
+      error: "Failed to fetch a fun fact",
+      details: error.message,
+    });
+  }
+
+})
 
 export default router;
