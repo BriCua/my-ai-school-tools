@@ -1,4 +1,6 @@
 import "./App.css";
+import "katex/dist/katex.min.css";
+
 import { useState, useEffect, useCallback } from "react";
 import {
   Routes,
